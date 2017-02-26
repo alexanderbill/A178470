@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':library_scrollable_viewpager', ':library_rxretrofit', ':library_discuz_net_service', ':library_discuz_model', ':library_component_actionbar', ':library_stack_blur'

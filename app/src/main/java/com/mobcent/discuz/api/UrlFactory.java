@@ -5,6 +5,7 @@ package com.mobcent.discuz.api;
  */
 
 public class UrlFactory {
+    public static final String LOGIN = "user/login";
     /**
      * 首页,  /网络直播
      */
@@ -36,4 +37,18 @@ public class UrlFactory {
     public static final String FORUM_LIST = "forum/forumlist";
 
     public static final String USER_FAVOR = "user/userfavorite";
+
+    public static final String USER_REPORT = "user/report";
+
+    /**
+     * 论坛设置
+     */
+    public static final String SETTING = "user/getsetting";
+
+    /**
+     * App显示配置
+     */
+    public static final String INIT_UI = "app/initui";
+
+
 }

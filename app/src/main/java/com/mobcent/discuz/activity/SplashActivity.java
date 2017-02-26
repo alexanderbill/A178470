@@ -14,6 +14,11 @@ import android.widget.ImageView;
 import android.os.Bundle;
 import android.content.Intent;
 
+import com.baidu.android.pushservice.CustomPushNotificationBuilder;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
+import com.mobcent.discuz.config.ForumSettings;
+
 public class SplashActivity extends Activity {
     private int MESSAGE_LOAD_PAYSTATE_PAGE;
     private int MESSAGE_START_HOME;
@@ -87,6 +92,7 @@ public class SplashActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mHandler = new Handler();
         /*configId = ConfigOptHelper.getConfigId(this);
         resource = MCResource.getInstance(getApplicationContext());
         db = SharedPreferencesDB.getInstance(getApplicationContext());
@@ -117,15 +123,15 @@ public class SplashActivity extends Activity {
                             } else if(key.equals("appbyme_url")) {
                                 uriSkipModel.url = value;
                             } else if(key.equals("topic_type")) {
-                                uriSkipModel.type = Integer.parseInt(value);
+                                uriSkipModel.mType = Integer.parseInt(value);
                             }
                         }
                         if(domain.equals("usercenter.appbymeclient.com")) {
                             uriSkipModel.skip = UriConstant.ActionSkip.USERCENTER;
                         } else if(domain.equals("detail.appbymeclient.com")) {
-                            if(uriSkipModel.type == 0x1) {
+                            if(uriSkipModel.mType == 0x1) {
                                 uriSkipModel.skip = UriConstant.ActionSkip.TOPIC_DETAIL;
-                            } else if(uriSkipModel.type == 0x2) {
+                            } else if(uriSkipModel.mType == 0x2) {
                                 uriSkipModel.skip = UriConstant.ActionSkip.ARTICLE_DETAIL;
                             } else {
                                 uriSkipModel = 0x0;
@@ -151,6 +157,12 @@ public class SplashActivity extends Activity {
             }
         }*/
         prepareView();
+
+        PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,"lgSqPsPav906Gf6NaEPyt2pd");
+
+        ForumSettings.getInstance().loadSetting();
+
+
         /*initHelper.init(this, configId, getAllDataByNet, new RequestCalback(this) {
 
             public void onPreExecute() {
@@ -172,14 +184,18 @@ public class SplashActivity extends Activity {
                 (DiscuzApplication)getApplication().setPermissionModel(permissionModel);
             }
         });*/
-        new Handler().postDelayed(new Runnable() {
+        mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent it = new Intent(SplashActivity.this, HomeActivity.class);
-                startActivity(it);
-                finish();
+                if (ForumSettings.getInstance().isLoading()) {
+                    mHandler.postDelayed(this, 1000);
+                } else {
+                    Intent it = new Intent(SplashActivity.this, HomeActivity.class);
+                    startActivity(it);
+                    finish();
+                }
             }
-        }, 5000);
+        }, 3000);
     }
 
     private void prepareView() {

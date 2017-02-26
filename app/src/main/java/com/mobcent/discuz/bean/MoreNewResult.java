@@ -91,6 +91,16 @@ public class MoreNewResult extends BaseResult {
         private int user_id;
         private String last_reply_date;
         private String user_nick_name;
+        /**
+         * hot : 0
+         * essence : 0
+         * top : 0
+         */
+
+        private int hot;
+        private int essence;
+        private int top;
+
         private int hits;
         private String summary;
         private int replies;
@@ -104,7 +114,7 @@ public class MoreNewResult extends BaseResult {
         private String distance;
         private String location;
         private String sourceWebUrl;
-        private List<?> imageList;
+        private List<String> imageList;
         private List<?> verify;
 
         public int getSpecial() {
@@ -303,7 +313,7 @@ public class MoreNewResult extends BaseResult {
             return imageList;
         }
 
-        public void setImageList(List<?> imageList) {
+        public void setImageList(List<String> imageList) {
             this.imageList = imageList;
         }
 
@@ -314,49 +324,31 @@ public class MoreNewResult extends BaseResult {
         public void setVerify(List<?> verify) {
             this.verify = verify;
         }
+
+        public int getHot() {
+            return hot;
+        }
+
+        public void setHot(int hot) {
+            this.hot = hot;
+        }
+
+        public int getEssence() {
+            return essence;
+        }
+
+        public void setEssence(int essence) {
+            this.essence = essence;
+        }
+
+        public int getTop() {
+            return top;
+        }
+
+        public void setTop(int top) {
+            this.top = top;
+        }
     }
-//    private List<Component.ExtParamsTopic> list;
-//    /**
-//     * page : 1
-//     * has_next : 1
-//     * total_num : 4880
-//     */
-//
-//    private int page;
-//    private int has_next;
-//    private int total_num;
-//
-//    public List<Component.ExtParamsTopic> getList() {
-//        return list;
-//    }
-//
-//    public void setList(List<Component.ExtParamsTopic> list) {
-//        this.list = list;
-//    }
-//
-//    public int getPage() {
-//        return page;
-//    }
-//
-//    public void setPage(int page) {
-//        this.page = page;
-//    }
-//
-//    public int getHas_next() {
-//        return has_next;
-//    }
-//
-//    public void setHas_next(int has_next) {
-//        this.has_next = has_next;
-//    }
-//
-//    public int getTotal_num() {
-//        return total_num;
-//    }
-//
-//    public void setTotal_num(int total_num) {
-//        this.total_num = total_num;
-//    }
 
 
 }

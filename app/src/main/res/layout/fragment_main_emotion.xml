@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/content_preview_container"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
     <include
         android:id="@+id/include_emotion_view"
         layout="@layout/include_emotion_bar"

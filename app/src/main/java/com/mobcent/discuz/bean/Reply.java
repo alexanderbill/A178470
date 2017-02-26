@@ -1,14 +1,18 @@
 package com.mobcent.discuz.bean;
 
+import android.text.TextUtils;
+
 import com.mobcent.common.JsonConverter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sun on 2016/9/4.
  */
 
-public class Reply {
+public class Reply implements Serializable{
 
     /**
      * json : {"fid":525,"tid":64551,"location":"","aid":"","content":"[{\"type\":0,\"infor\":\"[心]赞一\"}]","longitude":"116.10552215576172","latitude":"40.11105728149414","isHidden":0,"isAnonymous":0,"isOnlyAuthor":0,"isShowPostion":0,"replyId":0,"isQuote":0}
@@ -34,9 +38,46 @@ public class Reply {
     }
 
     public static Reply build(int fid, int topicId, String content) {
+       return build(fid, topicId, content, 0);
+    }
+
+    public static Reply build(int fid, int topicId, String content, List<String> pics) {
         JsonBean json = new JsonBean();
         json.setFid(fid);
         json.setTid(topicId);
+        json.setIsQuote(0);
+
+        ArrayList<Content> cs = new ArrayList<>();
+        Content c = new Content();
+        c.setType(0);
+        c.setInfo(content);
+        cs.add(c);
+
+        for (String imgUrl : pics) {
+            Content c1 = new Content();
+            c1.setType(1);
+            c1.setInfo(imgUrl);
+            cs.add(c1);
+        }
+        json.setContent(JsonConverter.toString(cs));
+
+        return build(json);
+    }
+
+    private static Reply build(int fid, int topicId, String content, int isQuote) {
+        JsonBean json = new JsonBean();
+        json.setFid(fid);
+        json.setTid(topicId);
+        json.setIsQuote(isQuote);
+        json.setContentStr(content);
+        return build(json);
+    }
+
+    public static Reply buildQuote(int topicId,int replyId, String content, int isQuote) {
+        JsonBean json = new JsonBean();
+        json.setReplyId(replyId);
+        json.setTid(topicId);
+        json.setIsQuote(isQuote);
         json.setContentStr(content);
         return build(json);
     }
@@ -62,7 +103,7 @@ public class Reply {
         }
     }
 
-    public static class BodyBean {
+    public static class BodyBean implements Serializable {
         /**
          * fid : 525
          * tid : 64551
@@ -92,7 +133,7 @@ public class Reply {
 
     }
 
-    public static class JsonBean {
+    public static class JsonBean implements Serializable{
         private int fid;
         private int tid;
         private String location;
@@ -212,6 +253,8 @@ public class Reply {
         }
 
         public void setContentStr(String content) {
+            if (TextUtils.isEmpty(content))
+                return;
             Content c = new Content();
             c.setType(0);
             c.setInfo(content);

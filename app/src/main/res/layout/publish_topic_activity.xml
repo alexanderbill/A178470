@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="@drawable/dz_bg_gray" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout android:id="@id/mc_forum_top_bar_box" android:background="@color/dz_skin_custom_topbar_color" android:layout_width="fill_parent" style="@style/mc_forum_top_bar_bg" android:layout_alignParentTop="true">
+<LinearLayout android:background="@drawable/dz_bg_gray" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
+    <RelativeLayout android:id="@id/mc_forum_top_bar_box" android:background="@color/dz_skin_custom_topbar_color" android:layout_width="fill_parent" style="@style/mc_forum_top_bar_bg">
         <Button android:gravity="center" android:id="@id/mc_forum_back_btn" android:background="@drawable/mc_forum_top_bar_button2" android:layout_width="@dimen/mc_forum_top_bar_height" android:layout_height="@dimen/mc_forum_top_bar_height" android:text="@string/mc_forum_cancel" android:layout_alignParentLeft="true" style="@style/mc_forum_top_bar_right_button" />
         <LinearLayout android:orientation="horizontal" android:id="@id/title_layout" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/mc_forum_top_bar_height" android:layout_marginRight="@dimen/mc_forum_top_bar_height" android:layout_centerInParent="true">
             <TextView android:ellipsize="end" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:id="@id/mc_forum_public_label_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mc_forum_publish" android:singleLine="true" style="@style/mc_forum_info_topbar_title" />
@@ -10,14 +11,7 @@
         <Button android:gravity="center" android:id="@id/mc_forum_public_btn" android:background="@drawable/mc_forum_top_bar_button2" android:layout_width="@dimen/mc_forum_top_bar_height" android:layout_height="@dimen/mc_forum_top_bar_height" android:text="@string/mc_forum_msg_chat_room_send" android:layout_alignParentRight="true" style="@style/mc_forum_top_bar_right_button" />
     </RelativeLayout>
 
-    <FrameLayout
-        android:id="@+id/fl_emotionview_main"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ScrollView android:id="@id/mc_forum_scrollview" android:scrollbars="none" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_above="@+id/fl_emotionview_main" android:layout_below="@+id/mc_forum_top_bar_box">
-        <RelativeLayout android:paddingBottom="45.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent">
+    <RelativeLayout android:paddingBottom="45.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent">
             <LinearLayout android:orientation="vertical" android:id="@id/mc_forum_top_content_box" android:background="@android:color/white" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="284.0dip">
                 <View android:id="@id/mc_forum_top_line_img" android:background="@drawable/dz_icon_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
                 <EditText android:id="@id/mc_forum_title_edit" android:background="@drawable/dz_bg_white" android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_marginLeft="10.0dip" android:layout_marginRight="10.0dip" android:hint="@string/mc_forum_rapid_publish_title" android:textCursorDrawable="@null" style="@style/mc_forum_edit_text" />
@@ -26,13 +20,16 @@
                 <EditText android:gravity="top" android:id="@id/mc_forum_content_edit" android:background="@drawable/dz_bg_white" android:paddingTop="12.0dip" android:layout_width="fill_parent" android:layout_height="200.0dip" android:layout_marginLeft="10.0dip" android:layout_marginRight="10.0dip" android:hint="@string/mc_forum_rapid_publish_content" android:lineSpacingExtra="5.0dip" android:textCursorDrawable="@null" style="@style/mc_forum_edit_text" />
             </LinearLayout>
             <GridView android:layout_width="match_parent"
+                android:padding="4dp"
+                android:verticalSpacing="4dp"
+                android:horizontalSpacing="8dp"
+                android:listSelector="@android:color/transparent"
                 android:id="@+id/imagegride"
-                android:numColumns="4"
+                android:numColumns="5"
                 android:stretchMode="columnWidth"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/mc_forum_top_content_box"
                 >
-
             </GridView>
             <LinearLayout android:orientation="horizontal" android:id="@id/classfies_parent_layout" android:background="@android:color/white" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:layout_below="@id/imagegride">
                 <TextView android:textSize="14.0sp" android:textColor="@color/mc_forum_text3_content_normal_color" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="10.0dip" android:text="@string/mc_forum_publish_classfy_title" />
@@ -43,6 +40,10 @@
                 <TextView android:textSize="@dimen/mc_forum_text_size_14" android:textColor="@color/mc_forum_text4_desc_normal_color" android:layout_gravity="center_vertical" android:id="@id/mc_forum_loction_text" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" android:layout_marginRight="15.0dip" android:text="@string/mc_forum_rapid_publish_show_location" android:singleLine="true" />
             </LinearLayout>
         </RelativeLayout>
-    </ScrollView>
 
-</RelativeLayout>
+    <FrameLayout
+        android:id="@+id/fl_emotionview_main"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

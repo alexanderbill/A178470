@@ -70,6 +70,7 @@ public class TopicReply {
      */
 
     private List<ManagePanelBean> managePanel;
+    private int topicId;
 
     public int getReply_id() {
         return reply_id;
@@ -247,24 +248,12 @@ public class TopicReply {
         this.managePanel = managePanel;
     }
 
-    public static class ManagePanelBean {
-        private String action;
-        private String title;
-
-        public String getAction() {
-            return action;
-        }
-
-        public void setAction(String action) {
-            this.action = action;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
+    public int getTopicId() {
+        return topicId;
     }
+
+    public void setTopicId(int topicId) {
+        this.topicId = topicId;
+    }
+
 }

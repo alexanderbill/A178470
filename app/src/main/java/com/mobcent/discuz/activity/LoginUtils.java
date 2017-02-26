@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.mobcent.discuz.application.DiscuzApplication;
+import com.mobcent.discuz.base.constant.DiscuzRequest;
+import com.mobcent.discuz.config.PasswordHelp;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,16 +41,56 @@ public class LoginUtils {
         return sp.getString("secret", "");
     }
 
+    public String getUserInfo() {
+        return sp.getString("userinfo", "");
+    }
+
     public String getAccessToken() {
         return sp.getString("token", "");
+    }
+
+    public  String getUserId(){
+        return sp.getString("uid", "");
     }
 
     public void setLogin(String info) throws JSONException {
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("userinfo", info);
         JSONObject obj = new JSONObject(info);
-        editor.putString("secret", obj.getString("secret"));
-        editor.putString("token", obj.getString("token"));
+        try {
+            editor.putString("uid", obj.getString("uid"));
+            editor.putString("secret", obj.getString("secret"));
+            editor.putString("token", obj.getString("token"));
+        } catch (Exception e) {
+            obj = obj.getJSONObject("body");
+            editor.putString("secret", obj.getString("secret"));
+            editor.putString("token", obj.getString("token"));
+        }
         editor.commit();
     }
+
+    public void setLogout() throws JSONException {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("userinfo", "");
+        editor.putString("secret", "");
+        editor.putString("token", "");
+        editor.commit();
+    }
+
+    public static void autoLogin() {
+        JSONObject obj = new JSONObject();
+        String[] account = PasswordHelp.readPassword(DiscuzApplication._instance);
+        try {
+            obj.put("mType", "login");
+            obj.put("isValidation", "1");
+            obj.put("username", account[0]);
+            obj.put("password", account[1]);
+            new DiscuzRequest("user/login", obj.toString(), null).begin();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

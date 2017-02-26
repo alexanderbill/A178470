@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="10dp"
+    android:background="@color/list_background_color"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+ <LinearLayout
+     android:layout_width="wrap_content"
+     android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="8dp"
+     android:layout_height="wrap_content">
+     <Button
+         android:id="@+id/post_collect"
+         android:layout_width="48dp"
+         android:background="@drawable/dz_toolbar_posts_collection"
+         android:layout_gravity="bottom|center"
+         android:includeFontPadding="false"
+         android:layout_height="48dp" />
+    <TextView
+        android:text="收藏本帖"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/gray"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+ </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="8dp"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/post_browser_open"
+            android:layout_width="48dp"
+            android:background="@drawable/dz_toolbar_posts_browser"
+            android:layout_gravity="bottom|center"
+            android:includeFontPadding="false"
+            android:layout_height="48dp" />
+        <TextView
+            android:text="浏览器打开"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/gray"
+            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="8dp"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/post_link_copy"
+            android:layout_width="48dp"
+            android:background="@drawable/dz_toolbar_posts_copylink"
+            android:layout_gravity="bottom|center"
+            android:includeFontPadding="false"
+            android:layout_height="48dp" />
+        <TextView
+            android:text="复制链接"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/gray"
+            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="8dp"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/post_only_poster_visible"
+            android:layout_width="48dp"
+            android:background="@drawable/dz_toolbar_posts_author"
+            android:layout_gravity="bottom|center"
+            android:includeFontPadding="false"
+            android:layout_height="48dp" />
+        <TextView
+            android:text="@string/mc_forum_posts_dialog_by_author"
+            android:id="@+id/post_only_poster_visible_txt"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/gray"
+            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

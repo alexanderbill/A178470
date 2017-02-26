@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/top_bar_widget"
     style="@style/mc_forum_top_bar_bg"
     android:layout_width="fill_parent">
@@ -7,6 +8,9 @@
         android:id="@+id/nav_title"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:maxLines="1"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
         style="@style/mc_forum_top_title_style"
         android:text="" />
 
@@ -14,9 +18,37 @@
         android:id="@+id/nav_btn_back"
         android:visibility="gone"
         style="@style/NavigationButton.Back" />
+
+    <LinearLayout
+        android:id="@+id/nav_expand"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/nav_title_sec"
+            style="@style/mc_forum_top_title_style"
+            android:layout_width="wrap_content"
+            android:padding="4dp"
+            android:layout_height="match_parent"
+            android:maxLines="1"
+            tools:text="标题" />
+
+        <ImageView
+            android:id="@+id/nav_icon_expand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:src="@drawable/dz_icon_top_arrow" />
+    </LinearLayout>
     <ImageView
         android:layout_alignParentRight="true"
         android:id="@+id/nav_btn_more"
+        android:src="@drawable/mc_forum_top_bar_button12_n"
         android:visibility="gone"
         style="@style/NavigationButton" />
 </RelativeLayout>

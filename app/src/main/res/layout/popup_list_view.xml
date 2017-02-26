@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="@color/mc_forum_transparent" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <View android:id="@id/popup_background" android:layout_width="fill_parent" android:layout_height="fill_parent" />
-    <ListView android:id="@id/popup_list_view" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:divider="@drawable/dz_icon_line" android:dividerHeight="1.0px" style="@style/list_view" />
-    <GridView android:id="@id/popup_grid_view" android:layout_width="fill_parent" android:layout_height="fill_parent" android:numColumns="3" android:divider="@drawable/dz_icon_line" android:dividerHeight="1.0px" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <View
+        android:id="@id/popup_background"
+        android:layout_width="fill_parent"
+        android:background="#33000000"
+        android:layout_height="fill_parent" />
+
+    <ListView
+        android:id="@id/popup_list_view"
+        style="@style/list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@drawable/dz_icon_line"
+        android:dividerHeight="1.0px"
+        android:visibility="gone" />
+
+    <GridView
+        android:id="@id/popup_grid_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@null"
+        android:divider="@drawable/dz_icon_line"
+        android:dividerHeight="1.0px"
+        android:numColumns="3" />
 </RelativeLayout>

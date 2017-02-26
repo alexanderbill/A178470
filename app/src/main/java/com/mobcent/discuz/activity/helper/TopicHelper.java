@@ -1,16 +1,13 @@
 package com.mobcent.discuz.activity.helper;
 
 import android.content.Context;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,14 +16,10 @@ import android.widget.TextView;
 import com.appbyme.dev.R;
 import com.mobcent.common.ImageLoader;
 import com.mobcent.common.ScreenUtil;
-import com.mobcent.discuz.activity.TopicDetailActivity;
 import com.mobcent.discuz.base.EmoticonHelper;
 import com.mobcent.discuz.base.UIJumper;
 import com.mobcent.discuz.bean.TopicContent;
-import com.mobcent.discuz.widget.ComAdapter;
 import com.mobcent.discuz.widget.ViewHolder;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -130,6 +123,79 @@ public class TopicHelper {
                     }
                 });
 
+                // TODO 点击图片进入ViewPager 查看原图（originalUrl)
+            }
+
+            viewGroup.addView(itemView);
+
+        }
+
+    }
+
+    /**
+     * 设置回帖内容
+     *
+     * @param context
+     * @param viewGroup
+     * @param topicContents
+     */
+    public static void updateReplyContent(final Context context, LinearLayout viewGroup, List<TopicContent> topicContents) {
+        viewGroup.removeAllViews();
+
+        for (final TopicContent item : topicContents) {
+            View itemView = LayoutInflater.from(context).inflate(R.layout.topic_reply_middle_item, viewGroup, false);
+            ViewHolder holder = new ViewHolder(itemView);
+
+            int type = item.getType();
+            holder.getView(R.id.text_view).setVisibility(
+                    type == TYPE_LINK || type == TYPE_TEXT || type == TYPE_ATTACHMENT ? View.VISIBLE : View.GONE);
+            holder.getView(R.id.img_view).setVisibility(
+                    type == TYPE_IMAGE ? View.VISIBLE : View.GONE);
+
+            final String content = item.getInfor();
+
+            if (type == TYPE_LINK || type == TYPE_ATTACHMENT) {
+                // 链接
+                TextView tv = holder.getView(R.id.text_view);
+                tv.setMovementMethod(LinkMovementMethod.getInstance());
+                SpannableStringBuilder span = new SpannableStringBuilder(content);
+                span.setSpan(new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        UIJumper.to(context, item.getUrl());
+
+                    }
+                }, 0, content.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                // 补充文字
+                if (!TextUtils.isEmpty(item.getDesc())) {
+                    span.append(item.getDesc());
+                }
+
+                tv.setText(span);
+            } else if (type == TYPE_TEXT) {
+                //普通文本，表情
+                final TextView tv = holder.getView(R.id.text_view);
+                tv.setTextIsSelectable(true);
+                final int height = (int) tv.getTextSize();
+                EmoticonHelper.addEmoticonSpans(context, content, height, new EmoticonHelper.EmoticonCallback() {
+                    @Override
+                    public void onEmoticonReady(SpannableStringBuilder builder) {
+                        tv.setText(builder);
+                    }
+                });
+
+            } else if (type == TYPE_IMAGE) {
+                //图片
+                final String url = item.getOriginalInfo();
+//                final String url = item.getInfor().endsWith(".gif") ? item.getOriginalInfo() : item.getInfor();
+                final ImageView imageView = holder.getView(R.id.img_view);
+                holder.getConvertView().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageLoader.load(url, imageView);
+                    }
+                });
                 // TODO 点击图片进入ViewPager 查看原图（originalUrl)
             }
 

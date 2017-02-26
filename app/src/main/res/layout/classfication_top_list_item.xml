@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:orientation="vertical" android:id="@id/mc_forum_publish_box" android:layout_width="fill_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:gravity="center" android:id="@id/mc_forum_publish_text" android:layout_width="fill_parent" android:layout_height="@dimen/mc_forum_classification_item_height" style="@style/mc_forum_pop_menu_item_style" />
-    <ImageView android:id="@id/mc_forum_line_image" android:background="@drawable/dz_icon_line" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/mc_forum_publish_text" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/mc_forum_publish_box"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@id/mc_forum_publish_text"
+        style="@style/mc_forum_pop_menu_item_style"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/mc_forum_classification_item_height"
+        android:gravity="center" />
+
+    <ImageView
+        android:id="@id/mc_forum_line_image"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mc_forum_publish_text"
+        android:background="@drawable/dz_icon_line" />
 </RelativeLayout>

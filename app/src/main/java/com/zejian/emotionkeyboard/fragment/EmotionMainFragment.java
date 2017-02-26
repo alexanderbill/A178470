@@ -29,9 +29,6 @@ import java.util.List;
  * Description:表情主界面
  */
 public class EmotionMainFragment extends BaseFragment implements FragmentBackHandler {
-
-    //是否绑定当前Bar的编辑框的flag
-    public static final String BIND_TO_EDITTEXT="bind_to_edittext";
     //是否隐藏bar上的编辑框和发生按钮
     public static final String HIDE_BAR_EDITTEXT_AND_BTN="hide bar's editText and btn";
 
@@ -39,12 +36,12 @@ public class EmotionMainFragment extends BaseFragment implements FragmentBackHan
     private static final String CURRENT_POSITION_FLAG="CURRENT_POSITION_FLAG";
 
     //表情面板
-    private EmotionKeyboard mEmotionKeyboard;
+    protected EmotionKeyboard mEmotionKeyboard;
 
-    private EditText bar_edit_text;
-    private ImageView bar_image_add_btn;
-    private Button bar_btn_send;
-    private LinearLayout rl_editbar_bg;
+    protected EditText bar_edit_text;
+    protected ImageView bar_image_add_btn;
+    protected Button bar_btn_send;
+    protected LinearLayout rl_editbar_bg;
 
     //需要绑定的内容view
     private View contentView;
@@ -52,14 +49,13 @@ public class EmotionMainFragment extends BaseFragment implements FragmentBackHan
     //不可横向滚动的ViewPager
     private NoHorizontalScrollerViewPager viewPager;
 
-    //是否绑定当前Bar的编辑框,默认true,即绑定。
-    //false,则表示绑定contentView,此时外部提供的contentView必定也是EditText
-    private boolean isBindToBarEditText=true;
-
     //是否隐藏bar上的编辑框和发生按钮,默认不隐藏
     private boolean isHidenBarEditTextAndBtn=false;
 
-    List<Fragment> fragments=new ArrayList<>();
+    protected List<Fragment> fragments=new ArrayList<>();
+
+    // 自己指定的EditText
+    private EditText mCustomEditText;
 
 
     /**
@@ -73,30 +69,34 @@ public class EmotionMainFragment extends BaseFragment implements FragmentBackHan
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_emotion, container, false);
         isHidenBarEditTextAndBtn= args.getBoolean(EmotionMainFragment.HIDE_BAR_EDITTEXT_AND_BTN);
-        //获取判断绑定对象的参数
-        isBindToBarEditText=args.getBoolean(EmotionMainFragment.BIND_TO_EDITTEXT);
         initView(rootView);
         mEmotionKeyboard = EmotionKeyboard.with(getActivity())
                 .setEmotionView(rootView.findViewById(R.id.ll_emotion_layout))//绑定表情面板
                 .bindToContent(contentView)//绑定内容view
-                .bindToEditText(!isBindToBarEditText ? ((EditText) contentView) : ((EditText) rootView.findViewById(R.id.bar_edit_text)))//判断绑定那种EditView
-                .bindToEmotionButton(rootView.findViewById(R.id.emotion_button))//绑定表情按钮
-                .build();
+                .bindToEditText(useCustomEditText() ? mCustomEditText : ((EditText) rootView.findViewById(R.id.bar_edit_text)))//判断绑定那种EditView
+                .bindToEmotionButton(rootView.findViewById(R.id.emotion_button));//绑定表情按钮
+        if (enableExtraPanel()) {
+            mEmotionKeyboard.bindExtraButton(rootView.findViewById(R.id.bar_image_add_btn), viewPager);
+        }
+        mEmotionKeyboard.build();
         initListener();
         initDatas();
         //创建全局监听
         GlobalOnItemClickManagerUtils globalOnItemClickManager= GlobalOnItemClickManagerUtils.getInstance(getActivity());
 
-        if(isBindToBarEditText){
+        if(useCustomEditText()){
+            // 使用指定的CustomEditText
+            globalOnItemClickManager.attachToEditText(mCustomEditText);
+            mEmotionKeyboard.bindToEditText(mCustomEditText);
+        }else{
             //绑定当前Bar的编辑框
             globalOnItemClickManager.attachToEditText(bar_edit_text);
-
-        }else{
-            // false,则表示绑定contentView,此时外部提供的contentView必定也是EditText
-            globalOnItemClickManager.attachToEditText((EditText) contentView);
-            mEmotionKeyboard.bindToEditText((EditText)contentView);
         }
         return rootView;
+    }
+
+    private boolean useCustomEditText() {
+        return mCustomEditText != null;
     }
 
     /**
@@ -114,6 +114,18 @@ public class EmotionMainFragment extends BaseFragment implements FragmentBackHan
      */
     public void bindToContentView(View contentView){
         this.contentView=contentView;
+    }
+
+    public void hidePanel() {
+        mEmotionKeyboard.hideAllPanel();
+    }
+
+    /**
+     * 设定指定的EditText
+     * @param editText
+     */
+    public void bindCustomEditText(EditText editText){
+        mCustomEditText = editText;
     }
 
     /**
@@ -139,6 +151,8 @@ public class EmotionMainFragment extends BaseFragment implements FragmentBackHan
         }
     }
 
+    //-------------------- 子类继承用------------------------------
+
     /**
      * 初始化监听器
      */
@@ -155,10 +169,20 @@ public class EmotionMainFragment extends BaseFragment implements FragmentBackHan
         //创建修改实例
         EmotiomComplateFragment f1= (EmotiomComplateFragment) factory.getFragment(EmotionUtils.EMOTION_CLASSIC_TYPE);
         fragments.add(f1);
+        addOtherPanelFragment(fragments);
         NoHorizontalScrollerVPAdapter adapter =new NoHorizontalScrollerVPAdapter(getActivity().getSupportFragmentManager(),fragments);
         viewPager.setAdapter(adapter);
     }
 
+    protected void addOtherPanelFragment(List<Fragment> fragments) {
+
+    }
+
+    protected boolean enableExtraPanel() {
+        return false;
+    }
+
+    //------------------------------------------------------------
 
     /**
      * 是否拦截返回键操作，如果此时表情布局未隐藏，先隐藏表情布局

@@ -10,17 +10,31 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.webkit.DownloadListener;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appbyme.dev.R;
+import com.litesuits.common.assist.Toastor;
 import com.mobcent.discuz.base.constant.DiscuzRequest;
+import com.mobcent.discuz.ui.TopicOptPopup;
+import com.mobcent.discuz.ui.WebOptPopup;
 
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.w3c.dom.Text;
+
+import java.nio.charset.Charset;
 import java.util.List;
 
 import okhttp3.Cookie;
@@ -49,6 +63,13 @@ public class WebActivity extends Activity implements View.OnClickListener {
         starter.putExtra(BUNDLE_WEB_VIEW_URL, url);
         starter.putExtra(BUNDLE_WEB_TITLE, title);
         context.startActivity(starter);
+    }
+
+    public static void startActivityForResult(Context context, String url, String title) {
+        Intent starter = new Intent(context, WebActivity.class);
+        starter.putExtra(BUNDLE_WEB_VIEW_URL, url);
+        starter.putExtra(BUNDLE_WEB_TITLE, title);
+        ((Activity)context).startActivityForResult(starter, LoginActivity.QQ_LOGIN);
     }
 
     @Override
@@ -85,6 +106,17 @@ public class WebActivity extends Activity implements View.OnClickListener {
 
         // Make the WebView handle all loaded URLs
         mWebView.setWebViewClient(new MyWebViewClient());
+
+        // setupDownload
+        mWebView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                finish();
+            }
+        });
         mWebView.loadUrl(mUrl);
     }
 
@@ -92,13 +124,19 @@ public class WebActivity extends Activity implements View.OnClickListener {
         CookieJar cookieJar = DiscuzRequest.OK_HTTP_CLIENT.cookieJar();
         HttpUrl httpUrl = HttpUrl.parse(mUrl);
         List<Cookie> cookies = cookieJar.loadForRequest(httpUrl);
-        StringBuilder sb = new StringBuilder();
-        for (Cookie c : cookies) {
-            sb.append(c.toString());
-            sb.append(";");
+//        StringBuilder sb = new StringBuilder();
+        for (Cookie cookie : cookies) {
+//            sb.append(cookie.toString());
+//            sb.append(";");
+//                Log.d("COOKIE", cookie.getName() + "=" + cookie.getValue() + ",path=" + cookie.getPath() + ",domain=" + cookie.getDomain());
+            CookieManager.getInstance().setCookie(cookie.domain(), cookie.name() + "=" + cookie.value() + "; domain=" + cookie.domain() + "; path=" + cookie.path());
         }
-
-        CookieManager.getInstance().setCookie(mUrl, sb.toString());
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            CookieSyncManager.getInstance().sync();
+        } else {
+            CookieManager.getInstance().flush();
+        }
+//        CookieManager.getInstance().setCookie(mUrl, sb.toString());
     }
 
     public void setUpUserAgent(WebView web) {
@@ -118,6 +156,31 @@ public class WebActivity extends Activity implements View.OnClickListener {
          */
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            Uri uri = Uri.parse(url);
+            if (!TextUtils.isEmpty(uri.getQuery()) && uri.getQuery().indexOf("openid=") != -1) {
+
+                String query = uri.getQuery();
+                String[] params = query.split("&");
+                String openid = "";
+                String oauth_token = "";
+                for (String param : params) {
+                    String[] values = param.split("=");
+                    if (values[0].equals("openid")) {
+                        openid = values[1];
+                    }
+                    if (values[0].equals("oauth_token")) {
+                        oauth_token = values[1];
+                    }
+                }
+                if (!TextUtils.isEmpty(oauth_token) && !TextUtils.isEmpty(openid)) {
+                    Intent intent = new Intent();
+                    intent.putExtra("oauth_token", oauth_token);
+                    intent.putExtra("openid", openid);
+                    WebActivity.this.setResult(RESULT_OK, intent);
+                    finish();
+                    return true;
+                }
+            }
             return false;
 //            if (Uri.parse(url).getHost().equals("www.baidu.com")) {
 //                // 这个是我的网页，所以不要覆盖，让我的WebView来加载页面
@@ -134,6 +197,19 @@ public class WebActivity extends Activity implements View.OnClickListener {
             super.onPageFinished(view, url);
             WebActivity.this.setWebTitle(view.getTitle());
             mPlaceHolderView.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            super.onReceivedError(view, request, error);
+            Toast.makeText(getBaseContext(), "error:" + error.toString(), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+            super.onReceivedHttpError(view, request, errorResponse);
+            Toast.makeText(getBaseContext(), "error:" + errorResponse.toString(), Toast.LENGTH_LONG).show();
+
         }
     }
 
@@ -172,8 +248,19 @@ public class WebActivity extends Activity implements View.OnClickListener {
         switch(v.getId()) {
             case R.id.nav_btn_more:
                 // show spinner
+                // 顶部Header更多操作
+                showHeaderOptMenu(v);
                 break;
         }
+    }
+
+    /**
+     * 显示操作popup - 收藏，浏览器打开，复制链接
+     * @param anchor
+     */
+    private void showHeaderOptMenu(View anchor) {
+        WebOptPopup webOptPopup = new WebOptPopup(this, mUrl);
+        webOptPopup.showAtLocation(anchor.getRootView(), Gravity.BOTTOM, 0, 0);
     }
 
     /**

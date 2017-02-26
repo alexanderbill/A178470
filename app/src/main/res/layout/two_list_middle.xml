@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/corner_style_default_bg_color"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-        android:background="@color/gray" >
 
         <LinearLayout
             android:id="@+id/left_list"
@@ -18,5 +17,4 @@
             android:layout_width="0dp"
             android:orientation="vertical"
             android:layout_height="wrap_content"></LinearLayout>
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

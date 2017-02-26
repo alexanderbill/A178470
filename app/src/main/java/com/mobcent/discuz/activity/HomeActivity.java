@@ -5,26 +5,11 @@
 
 package com.mobcent.discuz.activity;
 
-import com.appbyme.dev.R;
-import com.mobcent.discuz.base.constant.BaseIntentConstant;
-import com.mobcent.discuz.base.constant.LocationProvider;
-import com.mobcent.discuz.fragments.Discovery1Fragment;
-import com.mobcent.discuz.fragments.Discovery2Fragment;
-import com.mobcent.discuz.fragments.Discovery3Fragment;
-import com.mobcent.discuz.fragments.Discuz1Fragment;
-import com.mobcent.discuz.fragments.Discuz2Fragment;
-import com.mobcent.discuz.fragments.Discuz3Fragment;
-import com.mobcent.discuz.fragments.DiscuzFragment;
-import com.mobcent.discuz.fragments.HomeFragment;
-import com.mobcent.discuz.fragments.IWantKnowFragment;
-import com.mobcent.discuz.fragments.Me1Fragment;
-import com.mobcent.discuz.fragments.MeFragment;
-import com.mobcent.discuz.fragments.ZhidaoFragment;
-import com.mobcent.lowest.android.ui.module.plaza.constant.PlazaConstant;
-import com.mobcent.discuz.android.constant.ConfigConstant;
-
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -34,16 +19,43 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.appbyme.dev.R;
+import com.mobcent.discuz.android.constant.ConfigConstant;
+import com.mobcent.discuz.base.constant.BaseIntentConstant;
+import com.mobcent.discuz.base.constant.LocationProvider;
+import com.mobcent.discuz.bean.InitUIResult;
+import com.mobcent.discuz.config.ForumSettings;
+import com.mobcent.discuz.fragments.Discovery1Fragment;
+import com.mobcent.discuz.fragments.Discovery2Fragment;
+import com.mobcent.discuz.fragments.Discovery3Fragment;
+import com.mobcent.discuz.fragments.DiscoveryBaseFragment;
+import com.mobcent.discuz.fragments.Discuz1Fragment;
+import com.mobcent.discuz.fragments.Discuz2Fragment;
+import com.mobcent.discuz.fragments.Discuz3Fragment;
+import com.mobcent.discuz.fragments.DiscuzFragment;
+import com.mobcent.discuz.fragments.HomeFragment;
+import com.mobcent.discuz.fragments.MeFragment;
+import com.mobcent.lowest.android.ui.module.plaza.constant.PlazaConstant;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static android.media.CamcorderProfile.get;
 
 public class HomeActivity extends FragmentActivity implements BaseIntentConstant, PlazaConstant, ConfigConstant, View.OnClickListener {
+    private static final int POS_DISCOVERY= 2;
     private String TAG;
     private Fragment[] fragment = new Fragment[4];
+    private String[] titles = new String[]{"首页","论坛","发现","我的"};
     private Fragment currentFragment;
     private Button mStateButton1;
     private Button mStateButton2;
     private Button mStateButton3;
     private Button mStateButton4;
-    private int mState = 0;
+    private int mState = -1;
+    private View mStatePostButton;
 
     public HomeActivity() {
 
@@ -56,15 +68,18 @@ public class HomeActivity extends FragmentActivity implements BaseIntentConstant
         LinearLayout tv = (LinearLayout) findViewById(R.id.bottomBox);
         mStateButton1 = (Button)tv.findViewById(R.id.first);
         mStateButton1.setOnClickListener(this);
+        mStateButton1.setSelected(true);
         mStateButton2 = (Button)tv.findViewById(R.id.second);
         mStateButton2.setOnClickListener(this);
         mStateButton3 = (Button)tv.findViewById(R.id.third);
         mStateButton3.setOnClickListener(this);
         mStateButton4 = (Button)tv.findViewById(R.id.fourth);
         mStateButton4.setOnClickListener(this);
-        tv.findViewById(R.id.nav_btn).setOnClickListener(this);
-        LoginUtils.getInstance().init(this);
-        LocationProvider.getInstance().init(this);
+        mStatePostButton = tv.findViewById(R.id.nav_btn);
+        mStatePostButton.setOnClickListener(this);
+        addBackgroundFilter(mStateButton1, mStateButton2, mStateButton3, mStateButton4);
+
+
         fragment[0] = new HomeFragment();
 
         fragment[1] = new DiscuzFragment();
@@ -73,11 +88,31 @@ public class HomeActivity extends FragmentActivity implements BaseIntentConstant
         ((DiscuzFragment)fragment[1]).setTitles(f1);
         ((DiscuzFragment)fragment[1]).setFragments(fg1);
 
-        String[] f2 = {"视界", "慈善", "动漫"};
-        Fragment[] fg2 = {new Discovery1Fragment(), new Discovery2Fragment(), new Discovery3Fragment()};
-        fragment[2] = new DiscuzFragment();
-        ((DiscuzFragment)fragment[2]).setTitles(f2);
-        ((DiscuzFragment)fragment[2]).setFragments(fg2);
+
+        // 动态配置UI
+        String[] f2;
+        Fragment[] fg2;
+        InitUIResult uiSetting = ForumSettings.getInstance().getmUISetting();
+        if (uiSetting != null) {
+            // 中间有发帖
+            List<InitUIResult.ComponentListBean> list2 = uiSetting.getSubComponentList(POS_DISCOVERY + 1);
+            final int len = list2.size();
+            f2 = new String[len];
+            fg2 = new Fragment[len];
+
+            for (int i = 0; i < len; i++) {
+                InitUIResult.ComponentListBean item = list2.get(i);
+                f2[i] = item.getTitle();
+                fg2[i] = DiscoveryBaseFragment.newInstance(item.getExtParams().getNewsModuleId(),
+                        item.getType(), item.getStyle());
+            }
+        } else {
+            f2 = new String[]{"视界", "慈善", "动漫"};
+            fg2 = new Fragment[]{new Discovery1Fragment(), new Discovery2Fragment(), new Discovery3Fragment()};
+        }
+        fragment[POS_DISCOVERY] = new DiscuzFragment();
+        ((DiscuzFragment)fragment[POS_DISCOVERY]).setTitles(f2);
+        ((DiscuzFragment)fragment[POS_DISCOVERY]).setFragments(fg2);
 
         fragment[3] = new MeFragment();
         getSupportFragmentManager().beginTransaction()
@@ -86,10 +121,27 @@ public class HomeActivity extends FragmentActivity implements BaseIntentConstant
         switchState(0);
     }
 
+    private void addBackgroundFilter(View view, View... views) {
+        addBackgroundFilter(view);
+        if (views != null ) {
+            for (View v : views) {
+                addBackgroundFilter(v);
+            }
+        }
+    }
+
+    private void addBackgroundFilter(View v) {
+        PorterDuffColorFilter filter = new PorterDuffColorFilter(getResources().getColor(R.color.dz_skin_custom_main_color), PorterDuff.Mode.DST_OVER);
+        Drawable drawable = v.getBackground();
+        drawable.setColorFilter(filter);
+    }
+
     private void switchState(int state) {
         if (mState == state) {
             return;
         }
+
+        setHeaderTitle(titles[state]);
 
         mState = state;
         mStateButton1.setSelected(false);
@@ -118,6 +170,11 @@ public class HomeActivity extends FragmentActivity implements BaseIntentConstant
                 break;
         }
         onTabChange(mState);
+    }
+
+    private void setHeaderTitle(String title) {
+        TextView tv = (TextView) findViewById(R.id.nav_title);
+        tv.setText(title);
     }
 
     @Override

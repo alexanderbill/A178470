@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dz_bg_white">
+
+        <ImageView
+            android:id="@+id/board_icon_img"
+            android:layout_width="60.0dip"
+            android:layout_height="60.0dip"
+            android:layout_marginBottom="10.0dip"
+            android:layout_marginLeft="15.0dip"
+            android:layout_marginTop="10.0dip"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dz_icon_topic_default" />
+
+        <TextView
+            android:id="@+id/board_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/board_icon_img"
+            android:layout_marginLeft="10.0dip"
+            android:layout_toRightOf="@id/board_icon_img"
+            android:includeFontPadding="false"
+            android:text="板块"
+            android:textColor="@color/mc_forum_text4_normal_color"
+            android:textSize="@dimen/mc_forum_text_size_17" />
+
+        <TextView
+            android:id="@+id/board_topic_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/board_name_text"
+            android:layout_below="@id/board_name_text"
+            android:layout_marginTop="5.0dip"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:text="主题：66666 今日：88888"
+            android:textColor="#ff999999"
+            android:textSize="@dimen/mc_forum_text_size_12" />
+
+        <TextView
+            android:id="@id/topic_list_foruminfo_boarddesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/board_topic_num"
+            android:layout_below="@id/board_topic_num"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginRight="15.0dip"
+            android:layout_marginTop="5.0dip"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="2"
+            android:textColor="@color/mc_forum_text4_desc_normal_color"
+            android:textSize="@dimen/mc_forum_text_size_12" />
+
+        <TextView
+            android:id="@id/topic_list_forum_focus"
+            android:layout_width="60.0dip"
+            android:layout_height="30.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/board_name_text"
+            android:layout_marginRight="15.0dip"
+            android:background="@drawable/selector_corner_style_bg"
+            android:gravity="center"
+            android:text="@string/mc_forum_user_follow"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/mc_forum_text_size_12" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/mc_forum_line_height"
+            android:layout_alignParentBottom="true"
+            android:background="#ffd9d9d9" />
+    </RelativeLayout>
+
+    <include layout="@layout/line_horizontal" />
+    <LinearLayout
+        android:id="@+id/board_top_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
+    <include layout="@layout/line_horizontal" />
+    <include layout="@layout/item_divider"/>
+
+    <com.mobcent.common.SampleSlidingTabStrip
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="40dip" />
+</LinearLayout>

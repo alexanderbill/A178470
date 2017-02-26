@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 public class JsonConverter {
     static Gson gson = new Gson();
-    public static <T> T format(String json, Class<T> type) {
+    public static <T> T format(String json, Class<T> type){
 
         return  gson.fromJson(json,type);
     }

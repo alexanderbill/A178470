@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<library.component.actionbar.AppActionBar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/app_action_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+

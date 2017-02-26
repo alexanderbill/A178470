@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ru.noties.scrollable.ScrollableLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/user_home_scrollable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:scrollable_maxScroll="170dp"
+        android:overScrollMode="always"
+        app:scrollable_autoMaxScrollViewId="@+id/header_layout"
+        app:scrollable_closeUpAnimationMillis="250"
+        app:scrollable_closeUpAnimatorInterpolator="@android:anim/accelerate_decelerate_interpolator"
+        app:scrollable_considerIdleMillis="125"
+        app:scrollable_defaultCloseUp="true"
+        app:scrollable_friction="0.075"
+        app:scrollable_scrollerFlywheel="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.mobcent.discuz.module.user.view.UserHomeCenterHeader
+                android:id="@+id/header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="214dp"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+                <library.component.actionbar.sliding.SlidingTabLayout
+                    android:id="@+id/sliding_tab_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"/>
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <View
+            style="@style/line"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/fragment_user_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:overScrollMode="never" />
+
+    </ru.noties.scrollable.ScrollableLayout>
+
+    <include
+        layout="@layout/include_app_action_bar" />
+
+</FrameLayout>
+

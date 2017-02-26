@@ -3,31 +3,37 @@
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="1">
+        <View android:ellipsize="end" android:gravity="bottom|center" android:id="@id/nav_btn_bg" android:background="@color/dz_skin_custom_main_color" android:paddingBottom="2.0dip" android:layout_width="47.0dip" android:layout_height="47.0dip" android:includeFontPadding="false" android:layout_centerInParent="true" />
         <Button android:textSize="10.0sp" android:text="推荐" android:textColor="@color/home_nav_item_selector" android:ellipsize="end" android:gravity="bottom|center" android:id="@+id/first" android:background="@drawable/mc_forum_main_bar_button1" android:paddingBottom="3.0dip" android:layout_width="50.0dip" android:layout_height="50.0dip" android:singleLine="true" android:includeFontPadding="false" android:layout_centerInParent="true" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="1">
+        <View android:ellipsize="end" android:gravity="bottom|center" android:id="@id/nav_btn_bg" android:background="@color/dz_skin_custom_main_color" android:paddingBottom="2.0dip" android:layout_width="47.0dip" android:layout_height="47.0dip" android:includeFontPadding="false" android:layout_centerInParent="true" />
         <Button android:textSize="10.0sp" android:text="论坛" android:textColor="@color/home_nav_item_selector" android:ellipsize="end" android:gravity="bottom|center" android:id="@+id/second" android:background="@drawable/mc_forum_main_bar_button29" android:paddingBottom="3.0dip" android:layout_width="50.0dip" android:layout_height="50.0dip" android:singleLine="true" android:includeFontPadding="false" android:layout_centerInParent="true" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_height="wrap_content"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_weight="1">
-        <Button android:textSize="10.0sp" android:textColor="@color/home_nav_item_selector" android:ellipsize="end" android:gravity="bottom|center" android:id="@+id/nav_btn" android:background="@drawable/mc_forum_main_bar_button17"
-            android:layout_width="40.0dip" android:layout_height="40.0dip" android:singleLine="true" android:includeFontPadding="false" android:layout_centerInParent="true" />
+        <ImageView android:gravity="bottom|center" android:id="@id/nav_btn_bg" android:src="@color/dz_skin_custom_main_color" android:padding="5dip" android:layout_width="47.0dip" android:layout_height="47.0dip" android:includeFontPadding="false" android:layout_centerInParent="true" />
+        <ImageView android:gravity="bottom|center" android:id="@+id/nav_btn" android:src="@drawable/mc_forum_main_bar_button17" android:padding="5.0dip" android:layout_width="50.0dip" android:layout_height="50.0dip" android:singleLine="true" android:includeFontPadding="false" android:layout_centerInParent="true" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="1">
+        <View android:ellipsize="end" android:gravity="bottom|center" android:id="@id/nav_btn_bg" android:background="@color/dz_skin_custom_main_color" android:paddingBottom="2.0dip" android:layout_width="47.0dip" android:layout_height="47.0dip" android:includeFontPadding="false" android:layout_centerInParent="true" />
         <Button android:textSize="10.0sp" android:text="发现" android:textColor="@color/home_nav_item_selector" android:ellipsize="end" android:gravity="bottom|center" android:id="@+id/third" android:background="@drawable/mc_forum_main_bar_button5" android:paddingBottom="3.0dip" android:layout_width="50.0dip" android:layout_height="50.0dip" android:singleLine="true" android:includeFontPadding="false" android:layout_centerInParent="true" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="1">
+        <View android:ellipsize="end" android:gravity="bottom|center" android:id="@id/nav_btn_bg" android:background="@color/dz_skin_custom_main_color" android:paddingBottom="2.0dip" android:layout_width="47.0dip" android:layout_height="47.0dip" android:includeFontPadding="false" android:layout_centerInParent="true" />
         <Button android:textSize="10.0sp" android:text="设置" android:textColor="@color/home_nav_item_selector" android:ellipsize="end" android:gravity="bottom|center" android:id="@+id/fourth" android:background="@drawable/mc_forum_main_bar_button15" android:paddingBottom="3.0dip" android:layout_width="50.0dip" android:layout_height="50.0dip" android:singleLine="true" android:includeFontPadding="false" android:layout_centerInParent="true" />
     </RelativeLayout>
 </LinearLayout>

@@ -50,26 +50,22 @@ public abstract  class BaseActivity extends FragmentActivity implements TaskClea
         isDebug = DiscuzApplication.isDebug;
         APP_NAME = "LqForum";
         $Log(TAG + "-->onCreate()");
-        try {
-            Bundle bundle = getIntent().getExtras();
-            initParams(bundle);
-            mActivityContentView = (ViewGroup) getLayoutInflater()
-                    .inflate(bindLayout(), null);
-            if (mAllowFullScreen) {
-                this.getWindow().setFlags(
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                requestWindowFeature(Window.FEATURE_NO_TITLE);
-            }
-            if (isSetStatusBar) {
-                steepStatusBar();
-            }
-            setContentView(mActivityContentView);
-            initView(mActivityContentView, savedInstanceState);
-            initData(this);
-        } catch (Exception e) {
-            e.printStackTrace();
+        Bundle bundle = getIntent().getExtras();
+        initParams(bundle);
+        mActivityContentView = (ViewGroup) getLayoutInflater()
+                .inflate(bindLayout(), null);
+        if (mAllowFullScreen) {
+            this.getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
+        if (isSetStatusBar) {
+            steepStatusBar();
+        }
+        setContentView(mActivityContentView);
+        initView(mActivityContentView, savedInstanceState);
+        initData(this);
     }
 
 

@@ -6,5 +6,5 @@
     <item android:state_pressed="true" android:drawable="@drawable/mc_forum_main_bar_button17_h" />
     <item android:state_focused="true" android:drawable="@drawable/mc_forum_main_bar_button17_h" />
     <item android:state_selected="true" android:drawable="@drawable/mc_forum_main_bar_button17_h" />
-    <item android:drawable="@drawable/dz_posts_vote_add" />
+    <item android:drawable="@drawable/mc_forum_main_bar_button17_n" />
 </selector>

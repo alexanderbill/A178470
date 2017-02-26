@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.ImageVideoWrapperEncoder;
 import com.litesuits.android.log.Log;
 import com.mobcent.common.JsonConverter;
+import com.mobcent.discuz.activity.BoardListDetailActivity;
 import com.mobcent.discuz.activity.LoginActivity;
 import com.mobcent.discuz.activity.LoginUtils;
 import com.mobcent.discuz.api.LqForumApi;
@@ -152,7 +153,11 @@ public class Discuz1Fragment extends BaseRefreshFragment {
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        try {
+                            BoardListDetailActivity.start(getContext(), object.getLong("board_id"));
+                        } catch (Exception e) {
 
+                        }
                     }
                 });
             } catch (Exception e) {

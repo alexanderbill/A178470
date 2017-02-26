@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.appbyme.dev.R;
+import com.mobcent.common.ErrReport;
 import com.mobcent.discuz.base.Tasker;
 import com.mobcent.discuz.fragments.HttpResponseHandler;
 import com.mobcent.discuz.ui.EmptyLayout;
@@ -74,11 +75,19 @@ public abstract class BaseRefreshActivity extends BaseActivity implements SuperR
         add(onExecuteRequest(this));
     }
 
+    public void showRereshingAnim() {
+        mRefreshLayout.setRefreshing(true);
+    }
+
     @Override
     public void onSuccess(String result) {
-        mRefreshLayout.setRefreshing(false);
-        mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
-        showContent(result);
+        try {
+            mRefreshLayout.setRefreshing(false);
+            mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+            showContent(result);
+        } catch (Exception e) {
+            ErrReport.jsonErr();
+        }
     }
 
     @Override
@@ -92,7 +101,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements SuperR
      * 设置Navi Bar 标题
      * @param title
      */
-    public void setTitle(String title) {
+    public void setHeaderTitle(String title) {
         TextView textView = (TextView) findViewById(R.id.nav_title);
         textView.setText(title);
     }
@@ -117,7 +126,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements SuperR
      * 显示结果
      * @param result
      */
-    protected abstract void showContent(String result);
+    protected abstract void showContent(String result) ;
 
 
 }

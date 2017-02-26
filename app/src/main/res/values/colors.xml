@@ -69,8 +69,8 @@
     <color name="mc_forum_voteBar">#ff0091fd</color>
     <color name="mc_forum_new_information_color">#ffdd7800</color>
     <color name="mc_forum_user_level_color">#ffcc9743</color>
-    <color name="mc_forum_user_girl_color">#fff3578e</color>
-    <color name="mc_forum_user_boy_color">#ff1ba0cb</color>
+    <color name="mc_forum_user_girl_color">#e5afcc</color>
+    <color name="mc_forum_user_boy_color">#aacae7</color>
     <color name="mc_forum_channel1_title_normal_color">#ffffffff</color>
     <color name="mc_forum_channel1_title_press_color">#ffffffff</color>
     <color name="mc_forum_channel1_page_text_color">#ffffffff</color>

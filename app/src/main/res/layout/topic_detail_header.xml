@@ -12,16 +12,8 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <TextView
-            android:id="@+id/post_is_essence"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/topic_essence_corner"
-            android:gravity="center"
-            android:text="精"
-            android:textColor="@color/white"
-            android:textSize="10dp" />
+        <include layout="@layout/topic_label_essence"     android:id="@+id/post_is_essence"
+            />
 
         <TextView
             android:id="@+id/post_title"

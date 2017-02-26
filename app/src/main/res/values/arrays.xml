@@ -26,6 +26,14 @@
         <item>澳门</item>
         <item>台北</item>
     </string-array>
+
+    <string-array name="report_type_name">
+        <item>@string/mc_forum_report_adult_content</item>
+        <item>@string/mc_forum_polity_sensi_content</item>
+        <item>@string/mc_forum_vulgar_speech</item>
+        <item>@string/mc_forum_other_reason</item>
+    </string-array>
+
     <string-array name="vp_praise_names">
         <item>video_detail_dianzan_icon1</item>
         <item>video_detail_dianzan_icon2</item>

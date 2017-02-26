@@ -7,19 +7,19 @@
     android:padding="24dp"
     android:weightSum="4">
 
-    <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+    <!--<FrameLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1">-->
 
-        <ImageView
-            android:id="@+id/pan_album"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dz_toolbar_reply_camera"
-            android:minHeight="40dp"
-            android:minWidth="40dp" />
-    </FrameLayout>
+        <!--<ImageView-->
+            <!--android:id="@+id/pan_album"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/dz_toolbar_reply_camera"-->
+            <!--android:minHeight="40dp"-->
+            <!--android:minWidth="40dp" />-->
+    <!--</FrameLayout>-->
 
     <FrameLayout
         android:layout_width="0dp"

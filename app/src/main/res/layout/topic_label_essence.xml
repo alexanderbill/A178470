@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="14dp"
+    android:layout_height="14dp"
+    android:layout_alignParentRight="true"
+    android:background="@drawable/topic_essence_corner"
+    android:gravity="center"
+    android:text="精"
+    android:textColor="@color/white"
+    android:textSize="10dp"
+    tools:showIn="@layout/topic_detail_header" />

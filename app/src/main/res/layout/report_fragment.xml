@@ -2,23 +2,34 @@
 <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent" style="@style/mc_forum_all_bg1"
   xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout android:id="@id/mc_forum_report_reason_box" android:layout_width="147.0dip" android:layout_height="60.0dip" android:layout_alignParentLeft="true">
-        <EditText android:textColorHint="@color/mc_forum_text3_content_normal_color" android:id="@id/mc_forum_report_reason_edit" android:background="@android:color/white" android:paddingLeft="15.0dip" android:layout_width="fill_parent" android:layout_height="60.0dip" android:hint="@string/mc_forum_select_report_reason_str" android:singleLine="true" android:editable="false" android:layout_alignParentLeft="true" style="@style/mc_forum_edit_text" />
-        <ImageButton android:id="@id/mc_forum_report_reason_imgBtn" android:background="@drawable/dz_publish_select_btn_n" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="15.0dip" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
-        <ImageView android:background="@drawable/dz_icon_line" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_alignParentRight="true" />
+        <!--<EditText android:textColorHint="@color/mc_forum_text3_content_normal_color" android:id="@id/mc_forum_report_reason_edit" android:background="@android:color/white" android:paddingLeft="15.0dip" android:layout_width="fill_parent" android:layout_height="60.0dip" android:hint="@string/mc_forum_select_report_reason_str" android:singleLine="true" android:editable="false" android:layout_alignParentLeft="true" style="@style/mc_forum_edit_text" />-->
+        <Spinner
+            android:id="@+id/spinner_report"
+            android:layout_width="match_parent"
+            android:entries="@array/report_type_name"
+            android:layout_height="match_parent"></Spinner>
+        <!--<ImageButton android:id="@id/mc_forum_report_reason_imgBtn" android:background="@drawable/dz_publish_select_btn_n" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="15.0dip" android:layout_alignParentRight="true" android:layout_centerVertical="true" />-->
+        <!--<ImageView android:background="@drawable/dz_icon_line" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_alignParentRight="true" />-->
     </RelativeLayout>
     <ImageView android:id="@id/mc_forum_report_line" android:background="@drawable/dz_icon_line" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/mc_forum_report_reason_box" />
-    <EditText android:textSize="@dimen/mc_forum_text_size_14" android:textColorHint="@color/mc_forum_input_hint_text_color" android:id="@id/mc_forum_report_detail_description_edit" android:layout_width="fill_parent" android:layout_height="300.0dip" android:hint="@string/mc_forum_report_tip_detail_content_str" android:layout_below="@id/mc_forum_report_line" style="@style/mc_forum_content_edit_style" />
+
     <Button android:textColor="@color/mc_forum_text1_normal_color" android:id="@id/mc_forum_report_submit_btn" android:background="@drawable/login_bg_corner" android:layout_width="fill_parent" android:layout_height="30.0dip" android:layout_marginLeft="22.0dip" android:layout_marginTop="42.0dip" android:layout_marginRight="22.0dip" android:text="@string/mc_forum_report_submit_str" android:layout_below="@id/mc_forum_report_detail_description_edit" />
     <RelativeLayout android:id="@id/mc_forum_transparent_box" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_alignParentBottom="true" />
-    <ScrollView android:id="@id/mc_forum_report_detail_box" android:background="@drawable/dz_personal_more_bg" android:visibility="gone" android:layout_width="130.0dip" android:layout_height="168.0dip" android:layout_marginLeft="8.0dip" android:layout_marginTop="60.0dip" android:layout_alignParentLeft="true" style="@style/mc_forum_board_dropdown_list_view">
-        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
-            <TextView android:gravity="center" android:id="@id/mc_forum_report_adult_content" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="@dimen/mc_forum_dropdown_select_item_height" android:text="@string/mc_forum_report_adult_content" style="@style/mc_forum_pop_menu_item_style" />
-            <ImageView android:id="@id/mc_forum_board_line1_img" android:background="@drawable/dz_icon_line" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="wrap_content" android:layout_below="@id/mc_forum_report_adult_content" />
-            <TextView android:gravity="center" android:id="@id/mc_forum_polity_sensi_content" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="@dimen/mc_forum_dropdown_select_item_height" android:text="@string/mc_forum_polity_sensi_content" android:layout_below="@id/mc_forum_board_line1_img" style="@style/mc_forum_pop_menu_item_style" />
-            <ImageView android:id="@id/mc_forum_board_line2_img" android:background="@drawable/dz_icon_line" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="wrap_content" android:layout_below="@id/mc_forum_polity_sensi_content" />
-            <TextView android:gravity="center" android:id="@id/mc_forum_vulgar_speech" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="@dimen/mc_forum_dropdown_select_item_height" android:text="@string/mc_forum_vulgar_speech" android:layout_below="@id/mc_forum_board_line2_img" style="@style/mc_forum_pop_menu_item_style" />
-            <ImageView android:id="@id/mc_forum_board_line3_img" android:background="@drawable/dz_icon_line" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="wrap_content" android:layout_below="@id/mc_forum_vulgar_speech" />
-            <TextView android:gravity="center" android:id="@id/mc_forum_other_reason" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="@dimen/mc_forum_dropdown_select_item_height" android:text="@string/mc_forum_other_reason" android:layout_below="@id/mc_forum_board_line3_img" style="@style/mc_forum_pop_menu_item_style" />
-        </RelativeLayout>
-    </ScrollView>
+    <!--<ScrollView android:id="@id/mc_forum_report_detail_box" android:background="@drawable/dz_personal_more_bg" android:visibility="gone" android:layout_width="130.0dip" android:layout_height="168.0dip" android:layout_marginLeft="8.0dip" android:layout_marginTop="60.0dip" android:layout_alignParentLeft="true" style="@style/mc_forum_board_dropdown_list_view">-->
+        <!--<RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">-->
+            <!--<TextView android:gravity="center" android:id="@id/mc_forum_report_adult_content" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="@dimen/mc_forum_dropdown_select_item_height" android:text="@string/mc_forum_report_adult_content" style="@style/mc_forum_pop_menu_item_style" />-->
+            <!--<ImageView android:id="@id/mc_forum_board_line1_img" android:background="@drawable/dz_icon_line" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="wrap_content" android:layout_below="@id/mc_forum_report_adult_content" />-->
+            <!--<TextView android:gravity="center" android:id="@id/mc_forum_polity_sensi_content" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="@dimen/mc_forum_dropdown_select_item_height" android:text="@string/mc_forum_polity_sensi_content" android:layout_below="@id/mc_forum_board_line1_img" style="@style/mc_forum_pop_menu_item_style" />-->
+            <!--<ImageView android:id="@id/mc_forum_board_line2_img" android:background="@drawable/dz_icon_line" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="wrap_content" android:layout_below="@id/mc_forum_polity_sensi_content" />-->
+            <!--<TextView android:gravity="center" android:id="@id/mc_forum_vulgar_speech" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="@dimen/mc_forum_dropdown_select_item_height" android:text="@string/mc_forum_vulgar_speech" android:layout_below="@id/mc_forum_board_line2_img" style="@style/mc_forum_pop_menu_item_style" />-->
+            <!--<ImageView android:id="@id/mc_forum_board_line3_img" android:background="@drawable/dz_icon_line" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="wrap_content" android:layout_below="@id/mc_forum_vulgar_speech" />-->
+            <!--<TextView android:gravity="center" android:id="@id/mc_forum_other_reason" android:layout_width="@dimen/mc_forum_dropdown_select_box_width" android:layout_height="@dimen/mc_forum_dropdown_select_item_height" android:text="@string/mc_forum_other_reason" android:layout_below="@id/mc_forum_board_line3_img" style="@style/mc_forum_pop_menu_item_style" />-->
+        <!--</RelativeLayout>-->
+    <!--</ScrollView>-->
+
+    <EditText android:textSize="@dimen/mc_forum_text_size_14" android:textColorHint="@color/mc_forum_input_hint_text_color" android:id="@id/mc_forum_report_detail_description_edit" android:layout_width="fill_parent" android:layout_height="300.0dip" android:hint="@string/mc_forum_report_tip_detail_content_str"
+        style="@style/mc_forum_content_edit_style"
+        android:layout_below="@+id/mc_forum_report_reason_box"
+        android:layout_toRightOf="@+id/mc_forum_transparent_box"
+        android:layout_toEndOf="@+id/mc_forum_transparent_box" />
 </RelativeLayout>

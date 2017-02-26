@@ -13,7 +13,7 @@ import com.mobcent.common.ScreenUtil;
  * 宽度固定的情况下，高度适应图片
  */
 
-public class FitHeightImageView extends ImageView{
+public class FitHeightImageView extends ImageView {
     private String url;
 
     public FitHeightImageView(Context context) {
@@ -45,6 +45,7 @@ public class FitHeightImageView extends ImageView{
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        ImageLoader.load(url, this);
+        if (url != null)
+            ImageLoader.load(url, this);
     }
 }

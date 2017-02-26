@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:drawable="@drawable/corner_style_change_bg_color"/>
+    <item android:drawable="@drawable/corner_style_default_bg_color"/>
+</selector>

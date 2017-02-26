@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -41,6 +42,28 @@
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+
+    <!-- Push service 运行需要的权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 富媒体需要声明的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+	<!-- 适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名-->
+	<uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.mobcent.discuz.activity" />
+    <permission
+        android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.mobcent.bdpush"
+        android:protectionLevel="normal">
+    </permission>
 
     <application
         android:name="com.mobcent.discuz.application.DiscuzApplication"
@@ -80,8 +103,16 @@
             android:theme="@android:style/Theme.Black.NoTitleBar"
             android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" />
-        <!--activity android:theme="@style/no_title_activity" android:name="com.mobcent.discuz.module.person.activity.UserHomeActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
-        <activity android:theme="@style/no_title_activity" android:name="com.mobcent.discuz.module.person.activity.UserPhotosActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
+
+        <activity
+            android:name="com.foamtrace.photopicker.PhotoPickerActivity"
+            android:theme="@style/PhotoPickerTheme"
+            android:configChanges="orientation|screenSize"/>
+
+        <activity android:name="com.foamtrace.photopicker.PhotoPreviewActivity"
+            android:theme="@style/PhotoPickerTheme"/>
+        <activity android:theme="@style/no_title_activity" android:name="com.mobcent.discuz.module.user.activity.UserHomeActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
+        <!--activity android:theme="@style/no_title_activity" android:name="com.mobcent.discuz.module.person.activity.UserPhotosActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
         <activity android:theme="@style/no_title_activity" android:name="com.mobcent.discuz.module.person.activity.UserPhotosSubActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
         <activity android:theme="@android:style/Theme.Black.NoTitleBar" android:name="com.mobcent.discuz.module.person.activity.ReportActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
         <activity android:theme="@style/no_title_activity" android:name="com.mobcent.discuz.module.person.activity.BasePhotoActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
@@ -98,6 +129,7 @@
         <activity android:name="com.mobcent.discuz.module.topic.list.fragment.activity.UserTopicListActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" /-->
         <activity
             android:name="com.mobcent.discuz.activity.LoginActivity"
+            android:exported="true"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar"
@@ -118,11 +150,14 @@
         <activity android:name="com.mobcent.discuz.activity.widget.album.PhotoSelectorActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
         <activity android:name="com.mobcent.discuz.activity.widget.album.PhotoPreviewActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" /-->
         <activity android:theme="@android:style/Theme.Black.NoTitleBar" android:name="com.mobcent.discuz.activity.MoreNewActivity" android:exported="true" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" />
+        <activity android:theme="@android:style/Theme.Black.NoTitleBar" android:name="com.mobcent.discuz.activity.BoardListDetailActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" />
 
         <activity android:theme="@android:style/Theme.Black.NoTitleBar" android:name="com.mobcent.discuz.activity.PublishTopicActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" />
         <activity android:theme="@android:style/Theme.Black.NoTitleBar" android:name="com.mobcent.discuz.activity.TopicDetailActivity" android:exported="true" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" />
         <activity android:theme="@android:style/Theme.Black.NoTitleBar" android:name="com.mobcent.discuz.activity.WebActivity" android:exported="true" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" />
         <activity android:theme="@android:style/Theme.Black.NoTitleBar" android:name="com.mobcent.discuz.activity.ModuleConfigActivity" android:exported="false" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" />
+        <activity android:theme="@android:style/Theme.Black.NoTitleBar" android:name="com.mobcent.discuz.activity.BoardTopMoreList" android:exported="false" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" />
+        <activity android:theme="@android:style/Theme.Black.NoTitleBar" android:name="com.mobcent.discuz.activity.ReportActivity" android:exported="false" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" />
 
         <!--activity android:name="com.mobcent.discuz.activity.widget.album.PhotoFragmentActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateAlwaysHidden|stateAlwaysVisible|adjustResize" />
         <activity android:name="com.mobcent.discuz.module.publish.fragment.activity.PoiFragmentAcitvity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
@@ -274,5 +309,64 @@
         <provider android:name="com.facebook.FacebookContentProvider" android:exported="true" android:authorities="com.facebook.app.FacebookContentProviderAppbyme178470" />
         <activity android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="@string/app_name" android:name="com.facebook.FacebookActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize" />
         <activity android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="@string/app_name" android:name="com.facebook.LoginActivity" /-->
+        <!-- push service start -->
+        <!-- push应用定义消息receiver声明 -->
+        <receiver android:name="com.mobcent.bdpush.MyPushMessageReceiver" >
+            <intent-filter>
+
+                <!-- 接收push消息 -->
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 用于接收系统消息以保证PushService正常运行 -->
+        <receiver android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+                <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <!-- Push服务接收客户端发送的各种请求-->
+        <receiver android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD" />
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <service android:name="com.baidu.android.pushservice.PushService" android:exported="true"
+            android:process=":bdservice_v1" >
+            <intent-filter >
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+            </intent-filter>
+        </service>
+        <!-- 4.4版本新增的CommandService声明，提升小米和魅族手机上的实际推送到达率 -->
+        <service android:name="com.baidu.android.pushservice.CommandService"
+            android:exported="true" />
+        <!-- push结束 -->
+
+        <!-- 适配Android N系统必需的ContentProvider声明，写权限包含应用包名-->
+        <provider
+			android:name="com.baidu.android.pushservice.PushInfoProvider"
+			android:authorities="com.mobcent.discuz.activity.bdpush"
+			android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.mobcent.discuz.activity"
+			android:protectionLevel = "signature"
+			android:exported="true" />
+		
     </application>
 </manifest>

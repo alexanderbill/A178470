@@ -24,6 +24,7 @@ public class TopicResult extends BaseResult{
     private String forumTopicUrl;
 
     private Topic topic;
+    private int topicId;
 
     private int total_num;
     /**
@@ -44,6 +45,9 @@ public class TopicResult extends BaseResult{
     }
 
     public List<TopicReply> getList() {
+        for (TopicReply reply : list) {
+            reply.setTopicId(topicId);
+        }
         return list;
     }
 
@@ -89,5 +93,9 @@ public class TopicResult extends BaseResult{
 
     public void setTotalNum(int total_num) {
         this.total_num = total_num;
+    }
+
+    public void setTopicId(int topicId) {
+        this.topicId = topicId;
     }
 }

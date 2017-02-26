@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
+import com.mobcent.discuz.activity.BoardListDetailActivity;
+import com.mobcent.discuz.activity.BoardTopMoreList;
 import com.mobcent.discuz.activity.ModuleConfigActivity;
 import com.mobcent.discuz.activity.MoreNewActivity;
 import com.mobcent.discuz.activity.WebActivity;
@@ -33,6 +35,7 @@ public class UIJumper {
                 break;
             case Component.TYPE_APP:
                 jumpWebView(context, component.getExtParams1().getRedirect(), component.getContent());
+                break;
             case Component.TYPE_TOPIC_LIST:
                 jumpForumSection(context, id);
                 break;
@@ -68,6 +71,7 @@ public class UIJumper {
                 break;
             case Component.TYPE_APP:
                 jumpWebView(context, urlRef, "");
+                break;
             case Component.TYPE_TOPIC_LIST:
                 jumpForumSection(context, id);
                 break;
@@ -94,8 +98,11 @@ public class UIJumper {
      * @param id
      */
     public static void jumpForumSection(Context context, long id) {
-        //TODO
-        String url = UrlFactory.TOPIC_LIST;
+        BoardListDetailActivity.start(context, id);
+    }
+
+    public static void jumpTopTopicList(Context context, long id) {
+        BoardTopMoreList.start(context, id);
     }
 
     /**

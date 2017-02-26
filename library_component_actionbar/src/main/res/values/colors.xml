@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="blue_title">#ff40c2f7</color>
+    <color name="grey_title">#ff727171</color>
+    <color name="white_title">#ffffffff</color>
+    <color name="grey_line">#f0e6e6</color>
+</resources>

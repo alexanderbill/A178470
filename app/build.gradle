@@ -1,15 +1,19 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-    useLibrary  'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.appbyme.dev"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.2.0"
+
+        ndk { //打包只包含指定的ABI
+            abiFilters "armeabi-v7a", "x86", "armeabi"
+        }
     }
 
 
@@ -17,10 +21,29 @@ android {
         main {
             manifest.srcFile 'src/main/AndroidManifest.xml'
             java.srcDirs = ['src/main/java']
-            res.srcDirs = ['src/main/res']
             assets.srcDirs = ['src/main/assets']
             jniLibs.srcDirs = ['libs']
+            res.srcDirs = ['src/main/res']
         }
+
+        def resDirs = ['drawable', 'layout', 'values', 'anim', 'animator', 'color', 'raw'];
+        [
+                projectDir.absolutePath + '/src/main/res_module',
+        ].each { String resPath ->
+            new File(resPath).listFiles().each { File file ->
+                if (file.isDirectory()) {
+                    main.res.srcDirs += file.absolutePath
+                    //支持二级资源目录
+                    file.listFiles().each { File file1 ->
+                        for (String dir : resDirs) {
+                            if (!file1.getName().contains(dir)) {
+                                main.res.srcDirs += file1.absolutePath
+                            }
+                        }
+                    }
+                }
+            }//end of each
+        }//end of each
     }
 
     buildTypes {
@@ -36,13 +59,29 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:support-v4:23.0.1'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile('com.android.support:recyclerview-v7:23.4.0')
+
+    compile 'com.squareup.okhttp3:okhttp:3.3.0'
     compile "com.google.code.gson:gson:2.7"
     // image tool
     compile 'com.github.bumptech.glide:glide:3.7.0'
     // util
     compile 'com.luffykou:android-common-utils:1.1.3'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'com.foamtrace:photopicker:1.0'
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+    // permission
+    compile 'com.github.hotchemi:permissionsdispatcher:2.2.0'
+    apt 'com.github.hotchemi:permissionsdispatcher-processor:2.2.0'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile project(':library_scrollable_viewpager')
+    compile project(':library_discuz_net_service')
+    compile project(':library_discuz_model')
+    compile project(':library_rxretrofit')
+    compile project(':library_component_actionbar')
+    compile project(':library_stack_blur')
+
 }
+

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="214dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/user_center_background"
+        android:layout_width="fill_parent"
+        android:layout_height="214dp"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="214dp"
+        android:scaleType="centerCrop"
+        android:background="@color/shadow"/>
+
+    <ImageView
+        android:id="@+id/user_center_avatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerInside"
+        android:layout_marginTop="44dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/user_center_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_center_avatar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/white"
+        tools:text="name"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/user_center_user_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_center_name"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/selector_gender_background"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="invisible"/>
+
+    <LinearLayout
+        android:id="@+id/user_center_active"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_center_user_title"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/user_center_essence_num"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/mc_forum_my_partin"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/user_center_friend_num"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/mc_forum_user_follow"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="fill_parent"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/user_center_follow_num"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/mc_forum_user_fan"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/user_center_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_center_active"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="9dp"
+        android:layout_marginLeft="30.0dip"
+        android:layout_marginRight="30.0dip"
+        android:ellipsize="end"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        tools:text="sign"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+</RelativeLayout>

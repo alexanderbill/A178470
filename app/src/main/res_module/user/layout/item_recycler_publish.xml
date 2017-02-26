@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+       style="@style/divider_line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <ImageView
+            android:id="@+id/item_publish_avatar"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:src="@drawable/dz_icon_head_default"/>
+        <TextView
+            android:id="@+id/item_publish_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_toRightOf="@id/item_publish_avatar"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/mc_forum_bg3_text_n"
+            android:textSize="14sp"
+            android:text="name"/>
+
+        <TextView
+            android:id="@+id/item_publish_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_alignLeft="@id/item_publish_name"
+            android:layout_below="@id/item_publish_name"
+            android:textColor="@color/mc_forum_text4_other_normal_color"
+            android:textSize="10sp"
+            android:text="5分钟前"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/mc_forum_bg3_text_n"
+            android:layout_below="@id/item_publish_avatar"
+            android:layout_marginTop="10dp"
+            android:text="我发表的内容"/>
+
+
+        <TextView
+            android:layout_toLeftOf="@+id/item_publish_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/mc_forum_text4_other_normal_color"
+            android:textSize="10sp"
+            android:text="浏览(9)"/>
+
+        <TextView
+            android:id="@+id/item_publish_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/mc_forum_text4_other_normal_color"
+            android:textSize="10sp"
+            android:text="评论(9)"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
+
